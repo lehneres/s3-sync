@@ -1,5 +1,5 @@
 #!/bin/bash
-set -Eeuo pipefail
+set -Eeo pipefail
 
 if [ -z "$S3_BUCKET" ] || [ -z "$DESTINATION" ]; then
   echo "Must set S3_BUCKET and DESTINATION env vars" 1>&2
