@@ -1,8 +1,8 @@
 #!/bin/bash
 set -Eeuo pipefail
 
-if [ -z "$S3_BUCKET" ] || [ -z "$DESTINATION" ] || [ -z "$INTERVAL" ]; then
-  echo "Must set S3_BUCKET, INTERVAL, and DESTINATION env vars" 1>&2
+if [ -z "$S3_BUCKET" ] || [ -z "$DESTINATION" ]; then
+  echo "Must set S3_BUCKET and DESTINATION env vars" 1>&2
   exit 1
 fi
 
@@ -37,7 +37,7 @@ function push_data {
 
 trap push_data SIGHUP SIGINT SIGTERM
 
-while true; do
+while [ -n "$INTERVAL" ]; do
   s=`date +'%s'`
   
   push_data
