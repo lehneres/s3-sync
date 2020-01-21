@@ -18,7 +18,7 @@ fi
 
 function pull_data {
   echo "Pulling initial Data from S3"
-  aws s3 sync s3://$S3_BUCKET $DESTINATION
+  aws s3 sync s3://$S3_BUCKET$S3_KEY $DESTINATION
 
   # Optionally set file permissions
   echo "Setting permissions to $OWNER_UID:$OWNER_GID"
@@ -32,7 +32,7 @@ pull_data
 
 function push_data {
   echo "Pushing Data to S3"
-  aws s3 sync $DESTINATION s3://$S3_BUCKET
+  aws s3 sync $DESTINATION s3://$S3_BUCKET$S3_KEY
 }
 
 trap push_data SIGHUP SIGINT SIGTERM
